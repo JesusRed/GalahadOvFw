@@ -27,6 +27,8 @@ class QuestionController extends AbstractController
             'Get out of here or that suit’s gonna be full of blood. 🤣',
         ];
 
+        dump($this);
+
         return $this->render('question/show.html.twig', [
             'question' => ucwords(str_replace('-', ' ', $anywordhere)),
             'answers' => $answers,
