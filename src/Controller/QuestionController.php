@@ -21,8 +21,15 @@ class QuestionController extends AbstractController
      */
     public function show($anywordhere)
     {
-        return $this->render('question/show.html.twig',[
-            'question' => ucwords(str_replace('-',' ', $anywordhere))
+        $answers = [
+            'Fear is a tool. When that light hits the sky, it’s not just a call. It’s a warning. For them. 🦇',
+            'I can take care of myself. 🐱‍👤',
+            'Get out of here or that suit’s gonna be full of blood. 🤣',
+        ];
+
+        return $this->render('question/show.html.twig', [
+            'question' => ucwords(str_replace('-', ' ', $anywordhere)),
+            'answers' => $answers,
         ]);
 
 //        return new Response(sprintf(

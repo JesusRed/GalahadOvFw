@@ -1,7 +1,21 @@
-<h1>{{ question }}</h1>
+{% extends 'base.html.twig' %}
 
-{# (*＾▽＾)／(*＾▽＾)／(*＾▽＾)／ #}
+{% block title %}Question: {{ question }}{% endblock %}
 
-<div>
-    Kson is so angry, we don't have the question print here!
-</div>
+{% block body %}
+    <h1>{{ question }}</h1>
+
+    {# (*＾▽＾)／(*＾▽＾)／(*＾▽＾)／ #}
+
+    <div>
+        Kson is so angry, we don't have the question print here!
+    </div>
+
+    <h2>Answers ({{ answers|length }})</h2>
+
+    <ul>
+        {% for answer in answers %}
+            <li>{{ answer }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
