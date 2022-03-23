@@ -12,7 +12,7 @@ class QuestionController extends AbstractController
     /**
      * @Route("/", name="app_homepage")
      */
-    public function homepage()
+    public function homepage(Environment $twigEnviroment)
     {
 //      $html = $twigEnviroment->render('question/homepage.html.twig');
 //      return new Response($html);
