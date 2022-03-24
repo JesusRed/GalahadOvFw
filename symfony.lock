@@ -11,6 +11,12 @@
     "doctrine/lexer": {
         "version": "1.2.3"
     },
+    "knplabs/knp-markdown-bundle": {
+        "version": "1.10.0"
+    },
+    "michelf/php-markdown": {
+        "version": "1.9.1"
+    },
     "monolog/monolog": {
         "version": "2.4.0"
     },
@@ -254,6 +260,9 @@
         "version": "v1.0.3"
     },
     "twig/extra-bundle": {
+        "version": "v3.3.8"
+    },
+    "twig/markdown-extra": {
         "version": "v3.3.8"
     },
     "twig/twig": {

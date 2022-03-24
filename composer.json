@@ -7,6 +7,7 @@
         "php": ">=8.0.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "knplabs/knp-markdown-bundle": "^1.10",
         "sensio/framework-extra-bundle": "^6.2",
         "symfony/asset": "6.0.*",
         "symfony/console": "6.0.*",
@@ -20,6 +21,7 @@
         "symfony/yaml": "6.0.*",
         "thibautselingue/local-php-security-checker-installer": "^1.0",
         "twig/extra-bundle": "^2.12|^3.0",
+        "twig/markdown-extra": "^3.3",
         "twig/twig": "^2.12|^3.0"
     },
     "config": {
