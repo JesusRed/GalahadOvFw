@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\MarkdownHelper;
 use Knp\Bundle\MarkdownBundle\MarkdownParserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,8 +25,10 @@ class QuestionController extends AbstractController
     /**
      * @Route("/questions/{anywordhere}", name="app_question_show")
      */
-    public function show($anywordhere, MarkdownParserInterface $markdownParser, CacheInterface $cache)
+    public function show($anywordhere, MarkdownHelper $markdownHelper)
     {
+        //dump($this->getParameter('cache.adapter'));
+
         $answers = [
             'Fear is a tool. When that light hits the `sky`, it’s not just a call. It’s a warning. For them. 🦇',
             'I can take care of myself. 🐱‍👤',
@@ -33,11 +36,10 @@ class QuestionController extends AbstractController
         ];
 
         $questionText = 'I\'ve been turned into a cat, any thoughts on how to turn back? While I\'m **adorable**, I don\'t really care for cat food.';
-        $parsedQuestionText = $cache->get('markdown_' . md5($questionText), function () use ($questionText, $markdownParser) {
-            return $markdownParser->transformMarkdown($questionText);
-        });
 
-        dump($cache);
+        $parsedQuestionText = $markdownHelper->parse($questionText);
+
+        //dump($cache);
         //dd($markdownParser);
         //dump($this);
 
