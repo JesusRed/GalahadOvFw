@@ -40,11 +40,9 @@ class QuestionController extends AbstractController
     {
         //dump($this->getParameter('cache.adapter'));
         //dump($isDebug);
-        dump($sentryHub->getClient());
         if ($this->isDebug) {
             $this->logger->info('We are in debug mode!');
         }
-        throw new \Exception('bad stuff happened!');
 
         $answers = [
             'Fear is a tool. When that light hits the `sky`, it’s not just a call. It’s a warning. For them. 🦇',
