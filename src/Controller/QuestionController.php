@@ -29,11 +29,14 @@ class QuestionController extends AbstractController
     /**
      * @Route("/", name="app_homepage")
      */
-    public function homepage(Environment $twigEnviroment)
+    public function homepage(EntityManagerInterface $entityManager)
     {
-//      $html = $twigEnviroment->render('question/homepage.html.twig');
-//      return new Response($html);
-        return $this->render('question/homepage.html.twig');
+        $repository = $entityManager->getRepository(Question::class);
+        $questions = $repository->findAllAskedOrderedByNewest()
+        return $this->render('question/homepage.html.twig', [
+            'questions' => $questions,
+        ]);
+
     }
 
     /**
@@ -65,7 +68,7 @@ EOF
         //dd($question);
 
         return new Response(sprintf(
-            'Well hallo! The shiny new question is id #%d, slug: %s',
+            'Well hallo! The shiny new question is id #%d, anywordhere: %s',
             $question->getId(),
             $question->getAnywordhere()
         ));
@@ -74,7 +77,7 @@ EOF
     /**
      * @Route("/questions/{anywordhere}", name="app_question_show")
      */
-    public function show($anywordhere, MarkdownHelper $markdownHelper, HubInterface $sentryHub)
+    public function show($anywordhere, MarkdownHelper $markdownHelper, EntityManagerInterface $entityManager)
     {
         //dump($this->getParameter('cache.adapter'));
         //dump($isDebug);
@@ -82,23 +85,31 @@ EOF
             $this->logger->info('We are in debug mode!');
         }
 
+        $repository = $entityManager->getRepository(Question::class);
+        /** @var Question|null $question */
+        $question = $repository->findOneBy(['anywordhere' => $anywordhere]);
+        if (!$question) {
+            throw $this->createNotFoundException(sprintf('no question found for anywordhere "%s"', $anywordhere));
+        }
+        //dd($question);
+
         $answers = [
             'Fear is a tool. When that light hits the `sky`, it’s not just a call. It’s a warning. For them. 🦇',
             'I can take care of myself. 🐱‍👤',
             'Get out of here or that suit’s gonna be full of blood. 🤣',
         ];
 
-        $questionText = 'I\'ve been turned into a cat, any thoughts on how to turn back? While I\'m **adorable**, I don\'t really care for cat food.';
-
-        $parsedQuestionText = $markdownHelper->parse($questionText);
-
-        //dump($cache);
-        //dd($markdownParser);
-        //dump($this);
+//        $questionText = 'I\'ve been turned into a cat, any thoughts on how to turn back? While I\'m **adorable**, I don\'t really care for cat food.';
+//
+//        $parsedQuestionText = $markdownHelper->parse($questionText);
+//
+//        //dump($cache);
+//        //dd($markdownParser);
+//        //dump($this);
 
         return $this->render('question/show.html.twig', [
-            'question' => ucwords(str_replace('-', ' ', $anywordhere)),
-            'questionText' => $parsedQuestionText,
+            'question' => $question,
+//            'questionText' => $parsedQuestionText,
             'answers' => $answers,
         ]);
 
